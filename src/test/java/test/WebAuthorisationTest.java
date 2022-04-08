@@ -29,8 +29,8 @@ public class WebAuthorisationTest {
         var registeredUser = getRegisteredUser("active");
         $("[data-test-id='login'] input").setValue(registeredUser.getLogin());
         $("[data-test-id='password'] input").setValue(registeredUser.getPassword());
-        $("[data-test-id='action-login'] button").click();
-        //TODO условие успешного завершения
+        $$("button").find(Condition.exactText("Продолжить")).click();
+        $("h2").shouldBe(Condition.appear, Duration.ofSeconds(15)).shouldHave(Condition.ownText("Личный кабинет"));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class WebAuthorisationTest {
         var notRegisteredUser = getUser("active");
         $("[data-test-id='login'] input").setValue(notRegisteredUser.getLogin());
         $("[data-test-id='password'] input").setValue(notRegisteredUser.getPassword());
-        $("[data-test-id='action-login'].button").click();
+        $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
 
@@ -49,7 +49,7 @@ public class WebAuthorisationTest {
         var blockedUser = getRegisteredUser("blocked");
         $("[data-test-id='login'] input").setValue(blockedUser.getLogin());
         $("[data-test-id='password'] input").setValue(blockedUser.getPassword());
-        $("[data-test-id='action-login'].button").click();
+        $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
 
@@ -60,7 +60,7 @@ public class WebAuthorisationTest {
         var wrongLogin = getRandomLogin();
         $("[data-test-id='login'] input").setValue(wrongLogin);
         $("[data-test-id='password'] input").setValue(registeredUser.getPassword());
-        $("[data-test-id='action-login'].button").click();
+        $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
 
@@ -71,7 +71,7 @@ public class WebAuthorisationTest {
         var wrongPassword = getRandomPassword();
         $("[data-test-id='login'] input").setValue(registeredUser.getLogin());
         $("[data-test-id='password'] input").setValue(wrongPassword);
-        $("[data-test-id='action-login'].button").click();
+        $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
     }
 }
