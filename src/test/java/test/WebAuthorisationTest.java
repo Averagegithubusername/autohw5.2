@@ -41,6 +41,7 @@ public class WebAuthorisationTest {
         $("[data-test-id='password'] input").setValue(notRegisteredUser.getPassword());
         $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
+        $(".notification__content").shouldHave(Condition.ownText("Неверно указан логин или пароль"));
     }
 
     @Test
@@ -51,6 +52,7 @@ public class WebAuthorisationTest {
         $("[data-test-id='password'] input").setValue(blockedUser.getPassword());
         $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
+        $(".notification__content").shouldHave(Condition.ownText("Пользователь заблокирован"));
     }
 
     @Test
@@ -62,6 +64,7 @@ public class WebAuthorisationTest {
         $("[data-test-id='password'] input").setValue(registeredUser.getPassword());
         $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
+        $(".notification__content").shouldHave(Condition.ownText("Неверно указан логин или пароль"));
     }
 
     @Test
@@ -73,5 +76,6 @@ public class WebAuthorisationTest {
         $("[data-test-id='password'] input").setValue(wrongPassword);
         $$("button").find(Condition.exactText("Продолжить")).click();
         $("[data-test-id='error-notification']").shouldBe(Condition.appear, Duration.ofSeconds(15));
+        $(".notification__content").shouldHave(Condition.ownText("Неверно указан логин или пароль"));
     }
 }
